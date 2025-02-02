@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { getId } from './reducers/anecdoteReducer';
 
 const App = () => {
   const anecdotes = useSelector((state) => state);
@@ -16,6 +17,23 @@ const App = () => {
     voteForAnecdote(id);
   };
 
+  const createForAnecdote = (content) => {
+    dispatch({
+      type: 'NEW_ANECDOTE',
+      payload: {
+        content,
+        id: getId(),
+        votes: 0
+      }
+    });
+  };
+
+  const create = (event) => {
+    event.preventDefault();
+    const content = event.target.anecdote.value;
+    createForAnecdote(content);
+  };
+
   return (
     <div>
       <h2>Anecdotes</h2>
@@ -29,9 +47,14 @@ const App = () => {
         </div>
       ))}
       <h2>create new</h2>
-      <form>
+      <form onSubmit={create}>
         <div>
-          <input />
+          <input
+            name="anecdote"
+            type="text"
+            style={{ width: '99vw', boxSizing: 'border-box', padding: '10px' }}
+            placeholder="Introduce your anecdote here..."
+          />
         </div>
         <button>create</button>
       </form>
