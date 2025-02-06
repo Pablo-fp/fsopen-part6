@@ -9,8 +9,8 @@ const AnecdoteForm = () => {
     event.preventDefault();
     const content = event.target.anecdote.value;
     event.target.anecdote.value = '';
-    const newAnecdote = await anecdoteService.createNew(content);
-    dispatch(createForAnecdote(newAnecdote));
+
+    dispatch(createForAnecdote(content));
   };
 
   return (
