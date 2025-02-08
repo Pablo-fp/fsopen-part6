@@ -1,21 +1,30 @@
-const AnecdoteForm = () => {
+import React, { useState } from 'react';
 
-  const onCreate = (event) => {
-    event.preventDefault()
-    const content = event.target.anecdote.value
-    event.target.anecdote.value = ''
-    console.log('new anecdote')
-}
+const AnecdoteForm = ({ onCreateAnecdote }) => {
+  const [error, setError] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const content = event.target.anecdote.value;
+    if (content.length < 5) {
+      setError('Anecdote must be at least 5 characters long');
+      return;
+    }
+    setError('');
+    onCreateAnecdote({ content, votes: 0 });
+    event.target.anecdote.value = '';
+  };
 
   return (
     <div>
       <h3>create new</h3>
-      <form onSubmit={onCreate}>
-        <input name='anecdote' />
+      <form onSubmit={handleSubmit}>
+        <input name="anecdote" />
         <button type="submit">create</button>
       </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
-  )
-}
+  );
+};
 
-export default AnecdoteForm
+export default AnecdoteForm;
