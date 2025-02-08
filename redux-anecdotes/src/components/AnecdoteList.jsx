@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { voteForAnecdote } from '../reducers/anecdoteReducer';
+import { voteAnecdote } from '../reducers/anecdoteReducer';
 import { setNotification } from '../reducers/notificationReducer';
 import Notification from './Notification';
 
 const Anecdote = (props) => {
   const dispatch = useDispatch();
   const vote = async (anecdote) => {
-    dispatch(voteForAnecdote(anecdote.id));
+    dispatch(voteAnecdote(anecdote.id));
     dispatch(setNotification(`You voted for '${anecdote.content}'`, 5));
   };
   return (
